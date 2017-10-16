@@ -38,7 +38,7 @@ return [
     'facebook' => [
         'client_id' => '1244815642289518',
         'client_secret' => 'd734338be40736fe4d9fa8063fda75aa',
-        'redirect' => 'http://localhost/lv5_5/public/login/facebook/callback',
+        'redirect' => 'http://localhost/lv5_5/login/facebook/callback',
     ],
 
 ];
