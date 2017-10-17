@@ -48,4 +48,10 @@ return [
         'redirect' => 'http://localhost/lv5_5/login/twitter/callback',
     ],
 
+    'google' => [
+        'client_id' => '323065456096-3hm2kp6ahhkj7pl7c3eeepd1vkvoepdg.apps.googleusercontent.com',
+        'client_secret' => 'MRutSWVviStWoQCNYD1CZWm3',
+        'redirect' => 'http://localhost/lv5_5/login/google/callback',
+    ],
+
 ];

@@ -60,6 +60,9 @@
                                 <a href="{{ url('login/twitter')}}" class="btn btn-info">
                                     Login with twitter
                                 </a>
+                                <a href="{{ url('login/google')}}" class="btn btn-danger">
+                                    Login with google
+                                </a>
 
                                 <a class="btn btn-link" href="{{ route('password.request') }}">
                                     Forgot Your Password?

@@ -30,3 +30,7 @@ Route::get('login/facebook/callback', 'Auth\LoginController@handleProviderCallba
 Route::get('login/twitter', 'Auth\LoginController@twitterRedirectToProvider');
 Route::get('login/twitter/callback', 'Auth\LoginController@twitterHandleProviderCallback');
 
+/*google socialite*/
+Route::get('login/google', 'Auth\LoginController@googleRedirectToProvider');
+Route::get('login/google/callback', 'Auth\LoginController@googleHandleProviderCallback');
+

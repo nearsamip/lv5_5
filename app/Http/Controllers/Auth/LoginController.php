@@ -168,5 +168,70 @@ class LoginController extends Controller
         return $registerUser;
     }
 
+    /*google*/
+    /**
+     * Redirect the user to the google authentication page.
+     *
+     * @return Response
+     */
+    public function googleRedirectToProvider()
+    {
+        return Socialite::driver('google')->redirect();
+    }
+
+    /**
+     * Obtain the user information from google.
+     *
+     * @return Response
+     */
+    public function googleHandleProviderCallback()
+    {
+        $googleUser = Socialite::driver('google')->user();
+        $user = $this->checkGoogleId( $googleUser );
+        Auth::login( $user );
+        return redirect('/home');
+    }
+
+    private function checkGoogleId( $googleUser)
+    {
+        $user = User::where('gid',$googleUser->getId() )->first();
+        if( $user )
+        {
+            return $user;
+        }
+        else
+        {
+            /*check email*/
+            return $this->checkGoogleEmail( $googleUser );
+        }
+        
+    }
+
+    private function checkGoogleEmail( $googleUser )
+    {
+        $user = User::where('email',$googleUser->getEmail())->first();
+        if( $user )
+        {
+            User::where( 'email',$googleUser->getEmail() )->update(['fid'=>$googleUser->getId()]);
+            return $user;
+        }
+        return $this->registerGoogleUser( $googleUser );
+    }
+
+  
+
+    private function registerGoogleUser( $googleUser )
+    {
+        $user = new User;
+        $user->name = $googleUser->getName();
+        $user->email = $googleUser->getEmail();
+        $user->password = bcrypt('12345678');
+        $user->gid = $googleUser->getId();
+        $user->save( );
+        // echo $user->id;die;
+        $registerUser = User::find( $user->id );
+        return $registerUser;
+    }
+
     
 }
