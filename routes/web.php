@@ -26,3 +26,7 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::get('login/facebook', 'Auth\LoginController@redirectToProvider');
 Route::get('login/facebook/callback', 'Auth\LoginController@handleProviderCallback');
 
+/*twitter socialite*/
+Route::get('login/twitter', 'Auth\LoginController@twitterRedirectToProvider');
+Route::get('login/twitter/callback', 'Auth\LoginController@twitterHandleProviderCallback');
+

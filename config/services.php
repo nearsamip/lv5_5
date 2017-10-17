@@ -41,4 +41,11 @@ return [
         'redirect' => 'http://localhost/lv5_5/login/facebook/callback',
     ],
 
+
+    'twitter' => [
+        'client_id' => '1zfU2EVNGn3mmMiob9Wra6gP9',
+        'client_secret' => '21Fk5VpU2T2R0Ffzto682TQVHEojja10lFoc25zGu2imw0xorK',
+        'redirect' => 'http://localhost/lv5_5/login/twitter/callback',
+    ],
+
 ];

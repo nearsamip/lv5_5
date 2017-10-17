@@ -57,6 +57,9 @@
                                 <a href="{{ url('login/facebook')}}" class="btn btn-success">
                                     Login with facebook
                                 </a>
+                                <a href="{{ url('login/twitter')}}" class="btn btn-info">
+                                    Login with twitter
+                                </a>
 
                                 <a class="btn btn-link" href="{{ route('password.request') }}">
                                     Forgot Your Password?

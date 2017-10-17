@@ -73,7 +73,7 @@ class LoginController extends Controller
         else
         {
             /*check email*/
-            $this->checkEmail( $socialUser );
+            return $this->checkEmail( $socialUser );
         }
         
     }
@@ -86,7 +86,7 @@ class LoginController extends Controller
             User::where( 'email',$socialUser->getEmail() )->update(['fid'=>$socialUser->getId()]);
             return $user;
         }
-        $this->registerSocialUser( $socialUser );
+         return $this->registerSocialUser( $socialUser );
     }
 
   
@@ -99,6 +99,74 @@ class LoginController extends Controller
         $user->password = bcrypt('12345678');
         $user->fid = $socialUser->getId();
         $user->save( );
-        return $user;
+        $registerUser = User::find( $user->id );
+        return $registerUser;
     }
+
+    /*twitter*/
+    /**
+     * Redirect the user to the twitter authentication page.
+     *
+     * @return Response
+     */
+    public function twitterRedirectToProvider()
+    {
+        return Socialite::driver('twitter')->redirect();
+    }
+
+    /**
+     * Obtain the user information from twitter.
+     *
+     * @return Response
+     */
+    public function twitterHandleProviderCallback()
+    {
+        $twitterUser = Socialite::driver('twitter')->user();
+        $user = $this->checkTwitterId( $twitterUser );
+        Auth::login( $user );
+        return redirect('/home');
+    }
+
+    private function checkTwitterId( $twitterUser)
+    {
+        $user = User::where('tid',$twitterUser->getId() )->first();
+        if( $user )
+        {
+            return $user;
+        }
+        else
+        {
+            /*check email*/
+            return $this->checkTwitterEmail( $twitterUser );
+        }
+        
+    }
+
+    private function checkTwitterEmail( $twitterUser )
+    {
+        $user = User::where('email',$twitterUser->getEmail())->first();
+        if( $user )
+        {
+            User::where( 'email',$twitterUser->getEmail() )->update(['tid'=>$twitterUser->getId()]);
+            return $user;
+        }
+        return $this->registerTwitterUser( $twitterUser );
+    }
+
+  
+
+    private function registerTwitterUser( $twitterUser )
+    {
+        $user = new User;
+        $user->name = $twitterUser->getName();
+        $user->email = $twitterUser->getEmail();
+        $user->password = bcrypt('12345678');
+        $user->tid = $twitterUser->getId();
+        $user->save( );
+        // echo $user->id;die;
+        $registerUser = User::find( $user->id );
+        return $registerUser;
+    }
+
+    
 }
