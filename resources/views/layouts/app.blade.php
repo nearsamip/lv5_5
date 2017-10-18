@@ -70,6 +70,8 @@
                 </div>
             </div>
         </nav>
+        @component('components.who')
+        @endcomponent
 
         @yield('content')
     </div>
