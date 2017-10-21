@@ -44,3 +44,6 @@ Route::get('login/twitter/callback', 'Auth\LoginController@twitterHandleProvider
 Route::get('login/google', 'Auth\LoginController@googleRedirectToProvider');
 Route::get('login/google/callback', 'Auth\LoginController@googleHandleProviderCallback');
 
+Route::get('send', 'Email@simpleMail')->name('mail.simple');
+Route::get('send/advance', 'Email@advanceMail')->name('mail.advance');
+
